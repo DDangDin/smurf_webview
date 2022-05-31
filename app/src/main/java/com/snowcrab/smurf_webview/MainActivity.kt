@@ -20,7 +20,6 @@ class MainActivity : AppCompatActivity() {
         webView = findViewById(R.id.webview)
         btn_exit = findViewById(R.id.btn_exit)
 
-
         webView.webViewClient = WebViewClient()
         webView.webChromeClient = object : WebChromeClient() {
             override fun onPermissionRequest(request: PermissionRequest) {
@@ -29,6 +28,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
         webView.settings.loadWithOverviewMode =
             true  // WebView 화면크기에 맞추도록 설정 - setUseWideViewPort 와 같이 써야함
         webView.settings.useWideViewPort =
