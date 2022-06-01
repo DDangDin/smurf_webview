@@ -1,27 +1,32 @@
 package com.snowcrab.smurf_webview
 
+import android.annotation.TargetApi
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.webkit.PermissionRequest
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.EditText
 import android.widget.ImageButton
 
 class MainActivity : AppCompatActivity() {
     private lateinit var webView: WebView
-    private lateinit var btn_exit: ImageButton
+    private lateinit var btnExit: ImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         webView = findViewById(R.id.webview)
-        btn_exit = findViewById(R.id.btn_exit)
+        btnExit = findViewById(R.id.btn_exit)
 
+//        webView.webViewClient = MyWebClient()
         webView.webViewClient = WebViewClient()
         webView.webChromeClient = object : WebChromeClient() {
+//            @TargetApi(Build.VERSION_CODES.P)
             override fun onPermissionRequest(request: PermissionRequest) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P){
                     request.grant(request.resources)
@@ -44,7 +49,10 @@ class MainActivity : AppCompatActivity() {
 
         webView.settings.mediaPlaybackRequiresUserGesture = false
 
-        val webUrl = "https://www.smu.ac.kr/ko/index.do"
+        val url =  home.url
+        Log.d("urlTest", home.url)
+//        val url =  "ddcb-203-237-200-37.jp.ngrok.io"
+        val webUrl =  "https://${url}/javascript_simple.html"
 
         webView.loadUrl(webUrl)
 
@@ -53,7 +61,7 @@ class MainActivity : AppCompatActivity() {
 //            webView.reload()
 //        }
 
-        btn_exit.setOnClickListener {
+        btnExit.setOnClickListener {
             destroyWebView()
         }
     }
