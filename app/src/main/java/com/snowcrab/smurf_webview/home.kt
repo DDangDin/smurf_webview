@@ -3,14 +3,13 @@ package com.snowcrab.smurf_webview
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.ImageView
+import android.view.View
+import android.widget.*
 
 class home : AppCompatActivity() {
     private lateinit var btn_video: ImageButton
-    private lateinit var btn_set: Button
+    private lateinit var btn_set: ImageButton
+    private lateinit var imgView_hidden: ImageView
     private lateinit var imgView_video: ImageView
     private lateinit var edittext_URL: EditText
 
@@ -24,6 +23,7 @@ class home : AppCompatActivity() {
 
         edittext_URL = findViewById(R.id.input_url)
         btn_video = findViewById(R.id.btn_video)
+        imgView_hidden = findViewById(R.id.img_hidden)
         imgView_video = findViewById(R.id.imgView_video)
         btn_set = findViewById(R.id.btn_set)
 
@@ -34,7 +34,14 @@ class home : AppCompatActivity() {
         }
 
         btn_set.setOnClickListener {
-            url = edittext_URL.text.toString()
+            if(edittext_URL.text.isNotEmpty()){
+                url = edittext_URL.text.toString()
+                imgView_hidden.visibility = View.INVISIBLE
+                btn_video.visibility = View.VISIBLE
+                Toast.makeText(this, "URL 설정 완료", Toast.LENGTH_SHORT).show()
+            } else{
+                Toast.makeText(this, "URL 오류", Toast.LENGTH_SHORT).show()
+            }
         }
 
     }
